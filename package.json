@@ -19,7 +19,9 @@
   "homepage": "https://github.com/Zdn1992/zdn-vue-zech#readme",
   "dependencies": {
     "css-loader": "^3.0.0",
+    "file-loader": "^4.0.0",
     "style-loader": "^0.23.1",
+    "url-loader": "^2.0.0",
     "vue": "^2.6.10",
     "vue-loader": "^15.7.0",
     "vue-template-compiler": "^2.6.10",

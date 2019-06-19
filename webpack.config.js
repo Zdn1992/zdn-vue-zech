@@ -15,7 +15,21 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: [
+                    'style-loader', // 出现一段js代码,把样式写进html中
+                    'css-loader']
+            },
+            {
+                test: /\.(gif|jpg|jpeg|png|svg)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit:1024,
+                            name:'[name].[ext]',
+                        }
+                    }
+                ]
             }
         ]
     },
