@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue</title>
+    <script src="lib/vue.js"></script>
+</head>
+
+<body>
+    <!-- 差值表达式 -->
+    <!-- id=app-1 为挂载点 -->
+    <!-- 模板为挂在点内部的内容 -->
+    <div id="app-1">
+        <p>hello {{mes}}</p>
+        <!-- v-text 和 v-html 的区别 v-text会转义html标签 -->
+        <p v-text="text"></p>
+        <p v-html="html"></p>
+
+    </div>
+    <div id="app-2">
+        <span v-bind:title='"js 表达式 " + mesg'>鼠标悬停</span><br>
+        <span v-if='seen'>看得见?</span>
+    </div>
+    <div id="app-3">
+        <ol>
+            <li v-for="todo in todos">
+                {{todo.text}}
+            </li>
+        </ol>
+    </div>
+    <div id="app-4">
+        <div v-on:click='rev'>{{mes}}</div>
+    </div>
+
+    <!-- Vue 还提供了 v-model 指令，它能轻松实现表单输入和应用状态之间的双向绑定。 -->
+    <div id="app-5">
+        <p>{{mes}}</p>
+        <input type="text" v-model='mes'>
+    </div>
+</body>
+<script>
+    // vue实例
+    var vm1 = new Vue({
+        el: '#app-1',
+        // template: '<h2>组件来了</h2>',
+        data: {
+            mes: "hello vue",
+            text:'v-text',
+            html:"<strong>html</strong>"
+        }
+    })
+
+    var vm2 = new Vue({
+        el: '#app-2',
+        data: {
+            mesg: '创建于' + new Date().toLocaleString(),
+            seen: true,
+        }
+    })
+
+    var vm3 = new Vue({
+        el: '#app-3',
+        data: {
+            todos: [{
+                    text: "小王"
+                },
+                {
+                    text: "小米"
+                },
+                {
+                    text: "小红"
+                },
+            ]
+        }
+    })
+
+    var vm4 = new Vue({
+        el: "#app-4",
+        data: {
+            mes: "逆转消息",
+        },
+        methods: {
+            rev: function () {
+                this.mes = this.mes.split("").reverse().join("");
+            }   
+        }
+    })
+
+    var vm5 = new Vue({
+        el:"#app-5",
+        data:{
+            mes:"哇哈哈哈"
+        }
+    })
+</script>
+
+</html>
