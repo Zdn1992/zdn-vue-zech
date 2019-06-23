@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue</title>
+    <script src="./lib/vue.js"></script>
+</head>
+<!-- 表单输入绑定 -->
+
+<body>
+    <div id="app-1">
+        <input type="text" v-model="model">
+        <p v-text='model'></p>
+
+        <!-- 单个复选框,绑定到布尔值 -->
+        <!-- <input type="checkbox" name="" id="checkbox" v-model="checked">
+        <label for="checkbox">{{checked}}</label> -->
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ checked }}</label><br>
+
+
+        <input type="checkbox" value="jack" id="jack" v-model='checkNames'>
+        <label for="jack">jack</label>
+        <input type="checkbox" value="bob" id="bob" v-model='checkNames'>
+        <label for="bob">bob</label>
+        <input type="checkbox" value="lisa" id="lisa" v-model='checkNames'>
+        <label for="lisa">lisa</label>
+        <p v-text="checkNames"></p>
+
+        <input type="radio" name="" id="one" value="One" v-model="picked">
+        <label for="one">One</label>
+        <input type="radio" name="" id="two" value="Two" v-model="picked">
+        <label for="two">Two</label>
+        <p v-text="picked"></p>
+
+        <!-- 下拉框选择 -->
+        <select name="" id="" v-model="selected">
+            <option value="">请选择</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+        </select>
+        <p v-text="selected"></p>
+    </div>
+</body>
+<script>
+    var data = 'data';
+
+    var vm1 = new Vue({
+        el: '#app-1',
+        data: {
+            // 要进入实例数据
+            checked: false,
+            model: data,
+            age: 22,
+            checkNames:[],
+            picked:'',
+            selected:"",
+        },
+    })
+</script>
+
+</html>
