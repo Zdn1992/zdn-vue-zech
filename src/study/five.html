@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>深入了解组件</title>
+    <script src="./lib/vue.js"></script>
+</head>
+<!-- 深入了解组件 -->
+
+<body>
+    <!-- 1.组件基础 -->
+    <div id="app-1">
+        <!-- 按钮组件 -->
+        <button-component></button-component>
+        <!-- 博文组件 -->
+        <!-- 直接传递 -->
+        <!-- <blog-post title="one"></blog-post>
+        <blog-post title="two"></blog-post>
+        <blog-post title="three"></blog-post> -->
+        <!-- 从父元素的data中传递 -->
+        <blog-post
+        v-for="post in posts"
+        v-bind:key="post.id"
+        v-bind:title="post.value"
+        ></blog-post>
+    </div>
+</body>
+<script>
+    // 此方式为全局注册
+    Vue.component('button-component', {
+        // data 此时并不是一个对象
+        // 一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝
+        data: function () {
+            return {
+                count: 0,
+            };
+        },
+        template: '<button v-on:click="count ++">You can add {{count}}</button>'
+    })
+
+    // 通过 Prop 向子组件传递数据
+    Vue.component('blog-post',{
+        props:['title'],
+        template:"<h3>{{title}}</h3>"
+    })
+    var vm = new Vue({
+        el:"#app-1",
+        data:{
+            posts:[
+                {id:1,value:"毕加索"},
+                {id:2,value:"高斯"},
+                {id:3,value:"牛顿"}
+            ]
+        }
+    })
+</script>
+
+</html>
