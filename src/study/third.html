@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue</title>
+    <script src="./lib/vue.js"></script>
+</head>
+<!-- 事件处理 -->
+
+<body>
+    <div id="app-1">
+        <p>点击次数: {{count}}</p>
+        <button v-on:click="count += 1">Add</button>
+        <button v-on:click='greet'>问候</button>
+        <button v-on:click='sayHi("hi")'>sayHi</button>
+        <button v-on:click='sayHello("hello")'>sayHello</button>
+    </div>
+</body>
+<script>
+    var vm1 = new Vue({
+        el: '#app-1',
+        data: {
+            count: 0,
+            name: 'hello vue'
+        },
+        methods: {
+            greet: function (event) {
+                alert(this.name);
+                if (event) {
+                    alert(event.target.tagName);
+                }
+            },
+            sayHi:function(param){
+                alert(param);
+            },
+            sayHello:function(param){
+                alert(param);
+            }
+        },
+
+    })
+</script>
+
+</html>
