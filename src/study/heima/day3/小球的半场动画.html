@@ -9,29 +9,21 @@
     <script src="../../lib/vue.js"></script>
     <link rel="stylesheet" href="../../lib/bootstrap-3.3.7.css">
     <link rel="stylesheet" href="../../lib/animate.css">
-    <!-- <style>
-        .v-enter,
-        .v-leave-to {
-            opacity: 0;
-            transform: translateX(100px);
+    <style>
+        .ball {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: red;
         }
-
-        .v-enter-active,
-        .v-leave-active {
-            transition: all 0.4s ease;
-        }
-    </style> -->
+    </style>
 </head>
 
 <body>
     <div id="app">
         <input type="button" value="toggle" @click="show = !show">
-        <!-- <transition>
-            <h3 v-if="show">{{msg}}</h3>
-        </transition> -->
-        <transition enter-active-class="bounceIn" leave-active-class="bounceOut"
-        :duration="300">
-            <h3 v-if="show" class="animated">{{msg}}</h3>
+        <transition v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:after-enter="afterEnter">
+            <div class="ball" v-if="show"></div>
         </transition>
     </div>
 </body>
@@ -43,7 +35,19 @@
             show: false,
         },
         methods: {
-
+            beforeEnter(el){
+                e.style.transform = "translate(0,0)"
+            },
+            enter(el,done){
+                el.offsetHeight;
+                el.style.transform = "translate(150px,450px)";
+                el.style.transition = "all 1s ease";
+                done();
+            },
+            afterEnter(el){
+                console.log("ok");
+                this.show = !this.show;
+            },
         }
     })
 </script>
