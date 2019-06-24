@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Vue</title>
     <script src="../../lib/vue.js"></script>
     <link rel="stylesheet" href="../../lib/bootstrap-3.3.7.css">
 </head>
@@ -23,12 +23,12 @@
                 </label>
                 <label for="">
                     Name:
-                    <input type="text" v-model="name" class="form-control">
+                    <input type="text" v-model="name" class="form-control" @keyup.enter="add">
                 </label>
                 <input type="button" value="添加" class="btn btn-primary" @click="add">
                 <label for="">
                     Keyword:
-                    <input type="text" v-model="keyword" class="form-control">
+                    <input type="text" v-model="keyword" class="form-control" v-focus v-color="'pink'">
                 </label>
             </div>
         </div>
@@ -55,13 +55,28 @@
     </div>
 </body>
 <script>
-    
-    Vue.filter('dateFormat',function(dateStr){
+    // 定义全局过滤器
+    Vue.filter('dateFormat', function (dateStr) {
         var date = new Date(dateStr);
         var y = date.getFullYear();
         var m = date.getMonth() + 1;
         var d = date.getDate();
         return `${y}-${m}-${d}`;
+    })
+    // 自定义指令
+    Vue.directive('focus',{
+        inserted:function(el){
+            // 聚焦元素
+            el.focus();
+        }
+    })
+
+    Vue.directive('color',{
+        bind:function(el,binding){
+            el.style.color = binding.value;
+            console.log(binding.value);
+            console.log(binding.expression);
+        }
     })
     var vm = new Vue({
         el: '#app',
@@ -69,15 +84,30 @@
             id: '',
             name: '',
             keyword: '',
-            list: [
-                { id: 1, name: '奔驰', ctime: new Date() },
-                { id: 2, name: '宝马', ctime: new Date() },
-                { id: 3, name: '奥迪', ctime: new Date() },
+            list: [{
+                    id: 1,
+                    name: '奔驰',
+                    ctime: new Date()
+                },
+                {
+                    id: 2,
+                    name: '宝马',
+                    ctime: new Date()
+                },
+                {
+                    id: 3,
+                    name: '奥迪',
+                    ctime: new Date()
+                },
             ]
         },
         methods: {
             add() {
-                this.list.push({ id: this.id, name: this.name, ctime: new Date() });
+                this.list.push({
+                    id: this.id,
+                    name: this.name,
+                    ctime: new Date()
+                });
                 this.id = this.name = '';
             },
             del(id) {
@@ -97,11 +127,26 @@
                 });
                 return newList;
             }
+        },
+        // 定义私有的过滤器 调用远程是就近原则
+        filters: {
+            dateFormat: function (dateStr, pattern) {
+                var date = new Date(dateStr);
+                var y = date.getFullYear();
+                var m = (date.getMonth() + 1)
+                var d = date.getDate()
+                if (pattern && 'yyyy-mm-dd' === pattern) {
+                    return `${y}-${m}-${d}`;
+                } else {
+                    var hh = date.getHours();
+                    var mm = date.getMinutes();
+                    var ss = date.getSeconds();
+                    return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+                }
+            }
         }
-        
-    })
 
-    
+    })
 </script>
 
 </html>
